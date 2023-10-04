@@ -386,7 +386,6 @@ where s_id = (
                  (select s_id
                   from score
                   where c_id = 02)));
-
 -- 方法2
 select *
 from student
