@@ -386,6 +386,18 @@ where s_id = (
                  (select s_id
                   from score
                   where c_id = 02)));
+
+-- 方法2
+select *
+from student
+where s_id = (
+    select s_id
+    from score
+    where c_id = 01
+      and s_id not in
+	 (select s_id
+	  from score
+	  where c_id = 02)));
 ~~~
 
  11、查询没有学全所有课程的同学的信息
