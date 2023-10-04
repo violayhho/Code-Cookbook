@@ -485,14 +485,18 @@ where s_id not in (
 # 所学的课程不及格的数量达到了2及以上
 # 以不及格的条件来筛选查询出来学号、平均成绩
 
-select p.s_id, s.s_name, p.平均成绩
-from (select a.s_id, sum(a.s_score) / count(a.c_id) as '平均成绩'
+select q.s_id, s.s_name, q.平均成绩
+from (select a.s_id
       from score as a
       where a.s_score < 60
       group by s_id
       having count(a.s_id) >= 2) as p,
+      (select a.s_id,  avg(a.s_score) as '平均成绩'
+      from score as a
+      group by s_id
+      ) as q,
      student as s
-where s.s_id = p.s_id;
+where q.s_id = p.s_id and s.s_id = p.s_id;
 ~~~
 
 16、检索"01"课程分数小于60，按分数降序排列的学生信息
